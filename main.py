@@ -16,7 +16,7 @@ def calculate_time(func):
     start = datetime.now()
     result = func(*args, **kwargs)
     end = datetime.now()
-    elapsed = (end - start).total_seconds() * 1000
+    elapsed = (end - start).total_seconds()
     print(f"Time elapsed: {elapsed} second(s)")
     return result
 
