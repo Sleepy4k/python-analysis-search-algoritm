@@ -1,6 +1,6 @@
 try:
+  import time
   import random
-  from datetime import datetime
 except ImportError as e:
   print(f"Import error: {e}")
   print("Please make sure you have installed the required libraries.")
@@ -13,23 +13,14 @@ def calculate_time(func):
     function: The wrapper function that calculates the time elapsed of the function
   """
   def wrapper(*args, **kwargs):
-    start = datetime.now()
+    start = time.time()
     result = func(*args, **kwargs)
-    end = datetime.now()
-    elapsed = (end - start).total_seconds()
-    print(f"Time elapsed: {elapsed} second(s)")
+    end = time.time()
+    elapsed = end - start
+    print(f"Time elapsed: {elapsed:.10f} second(s)")
     return result
 
   return wrapper
-
-def get_random_number(numbers):
-  """ Get a random number from the provided list of numbers
-  Arguments:
-    numbers: a list of numbers
-  Returns:
-    int: Selected random number from the list
-  """
-  return numbers[random.randint(0, len(numbers) - 1)]
 
 def generate_numbers(n):
   """ Generate a list of random numbers with the provided length (n)
@@ -74,7 +65,7 @@ if __name__ == "__main__":
   try:
     length = int(input("Input length of number: "))
     numbers = generate_numbers(length)
-    target = get_random_number(numbers)
+    target = random.choice(numbers)
 
     print(f"Sequential search found target on {sequential_search(target, numbers)} step(s)")
     print(f"Binary search found target on {binary_search(target, numbers)} step(s)")
